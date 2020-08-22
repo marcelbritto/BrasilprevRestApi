@@ -12,24 +12,24 @@ package br.com.brasilprev.exception;
 import br.com.brasilprev.model.CustomError;
 
 /**
- * Class for errors
- * @author dmadmin
+ * Class for errors of Business logic
+ * @author marcelbritto
  *
  */
 public class BusinessException extends Exception {
 private static final long serialVersionUID = 1L;
 	private CustomError error;
 
-	public final static String ERROR_INVALID_INPUT = "Cliente de entrada invalido!";
+	public final static String ERROR_INVALID_INPUT = "Invalid Client input!";
 	public final static String ERROR_EXISTS = "Client already exists!";
 	public final static String ERROR_NOT_FOUND = "Client not found!";
-	public final static String ERROR_INVALID_NOME = "Nome do cliente invalido!";
-	public final static String ERROR_INVALID_CPF = "CPF do cliente invalido!";
-	public final static String ERROR_INVALID_ENDERECO = "Endereco do cliente invalido!";
+	public final static String ERROR_INVALID_NAME = "Invalid name!";
+	public final static String ERROR_INVALID_CPF = "Invalid CPF!";
+	public final static String ERROR_INVALID_ADDRESS = "Invalid address!";
 
 	public BusinessException(String message) {
 		this.error = new CustomError();
-		this.error.setMensagem(message);
+		this.error.setMessage(message);
 	}
 	
 	

@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.brasilprev.dao.ClientDAO;
 import br.com.brasilprev.exception.BusinessException;
@@ -73,10 +74,9 @@ public class ClientController {
 	 * @return
 	 * @throws BusinessException
 	 */
+	@Transactional(rollbackFor = Exception.class) 
 	public Client save(Client clientToInsert) throws BusinessException {
-		Optional<Client> client = clientDAO.findById(clientToInsert.getId());
-		if (client.isPresent()) 
-			throw new BusinessException(BusinessException.ERROR_EXISTS);
+		validateSave(clientToInsert);
 		
 		return clientDAO.save(clientToInsert);
 		
@@ -101,6 +101,7 @@ public class ClientController {
 	 * @return
 	 * @throws BusinessException
 	 */
+	@Transactional(rollbackFor = Exception.class) 
 	public Client update(Client clientToUpdate) throws BusinessException {
 		Optional<Client> client = clientDAO.findById(clientToUpdate.getId());
 		if (!client.isPresent()) 
@@ -108,5 +109,23 @@ public class ClientController {
 		
 		clientToUpdate = clientDAO.save(clientToUpdate);
 		return clientToUpdate;
+	}
+	
+	public void validateSave(Client client) throws BusinessException {
+		if (client == null) {
+			throw new BusinessException(BusinessException.ERROR_INVALID_INPUT);
+		}
+		if (client.getName() == null) {
+			throw new BusinessException(BusinessException.ERROR_INVALID_NAME);
+		}
+		if (client.getCpf() == null) {
+			throw new BusinessException(BusinessException.ERROR_INVALID_CPF);
+		}
+		if (client.getAddress() == null) {
+			throw new BusinessException(BusinessException.ERROR_INVALID_ADDRESS);
+		}
+		Optional<Client> clientDB = clientDAO.findById(client.getId());
+		if (clientDB.isPresent()) 
+			throw new BusinessException(BusinessException.ERROR_EXISTS);
 	}
 }

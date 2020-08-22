@@ -9,6 +9,8 @@
  */
 package br.com.brasilprev.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +22,10 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Client {
+public class Client implements Serializable{
 		
+	private static final long serialVersionUID = -6128602991724264419L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -91,8 +95,7 @@ public class Client {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -110,16 +113,13 @@ public class Client {
 				return false;
 		} else if (!cpf.equals(other.cpf))
 			return false;
-		if (address == null) {
-			if (other.address != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
+
+	
 }

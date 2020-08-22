@@ -16,28 +16,28 @@ package br.com.brasilprev.model;
  */
 public class CustomError {
 
-	private String mensagem;
+	private String message;
 
 	public CustomError() {
 		super();
 	}
 
-	public CustomError(String mensagem) {
+	public CustomError(String message) {
 		super();
-		this.mensagem = mensagem;
+		this.message = message;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	@Override
 	public String toString() {
-		return "Error [mensagem=" + mensagem + "]";
+		return "Error [message=" + message + "]";
 	}
 
 }

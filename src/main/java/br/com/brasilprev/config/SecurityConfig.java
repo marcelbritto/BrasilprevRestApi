@@ -10,6 +10,7 @@
 package br.com.brasilprev.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,13 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.anyRequest().authenticated()
+		http.httpBasic()
 			.and()
-			.httpBasic();
+			.authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/clients/**").hasRole("USER")
+            .antMatchers(HttpMethod.POST, "/clients").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PUT, "/clients/**").hasRole("ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/clients/**").hasRole("ADMIN")
+            .and()
+            .csrf().disable()
+            .headers().frameOptions().disable();
 		
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
 	}
 	
 	@Autowired

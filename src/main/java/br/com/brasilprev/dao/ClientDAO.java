@@ -24,5 +24,5 @@ import br.com.brasilprev.model.Client;
 @Repository
 public interface ClientDAO extends JpaRepository<Client, Long>  {
 	
-	List<Client> findByCpf(String cpf);
+	List<Client> findByCpfContaining(String cpf);
 }
